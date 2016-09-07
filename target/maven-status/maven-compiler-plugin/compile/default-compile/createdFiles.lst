@@ -1,5 +1,0 @@
-com\schibsted\metricsaws\ExceptionHandler.class
-com\schibsted\metricsaws\InstrumentedAwsClientFactory.class
-com\schibsted\metricsaws\MetricsContext.class
-com\schibsted\metricsaws\MetricsInvocationHandler.class
-com\schibsted\metricsaws\DelegateMethodExecutor.class
