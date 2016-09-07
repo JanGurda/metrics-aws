@@ -9,7 +9,8 @@ In order to use:
 - add maven/gradle dependency to your project
 
 
-Here is sample code:
+#Sample code:
+
 ```java
 public AmazonSQS sqsClient(MetricRegistry metricRegistry) {
   // Create AmazonSQS Service. Do not forget about tuning of timeouts and other connection options.
@@ -18,6 +19,25 @@ public AmazonSQS sqsClient(MetricRegistry metricRegistry) {
   // Wrap SQS Client with instrumented proxy.
   return InstrumentedAwsClientFactory.instrument(sqsClient, metricRegistry, "awsmetris.test");
 }
+```
+
+```java
+public AmazonS3 s3Client(MetricRegistry metricRegistry) {
+  // Create AmazonS3 Service client. Do not forget about tuning of timeouts and other connection options.
+  AmazonS3 s3Client = new AmazonS3Client(new BasicAWSCredentials("XXXX", "XXXX"));
+
+  // Wrap SQS Client with instrumented proxy.
+  return InstrumentedAwsClientFactory.instrument(s3Client, metricRegistry, "awsmetrics.test");
+}
+```
+
+_This kind of wrapping works also for other AWS SDK Clients (DynamoDB, Lambda, EC2 etc.)_
+
+Execution of any method defined in interface AmazonSQS or AmazonS3 will produce following metrics:
+
+```
+
+
 ```
 
 
