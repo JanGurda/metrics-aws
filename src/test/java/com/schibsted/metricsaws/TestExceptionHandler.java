@@ -37,10 +37,14 @@ public class TestExceptionHandler {
     public void shouldIncrementMetricForServerException() throws Exception {
         // given
         Method method = AmazonSQS.class.getMethod("sendMessage", String.class, String.class);
+        InvalidIdFormatException serviceException = new InvalidIdFormatException("Some message");
+        serviceException.setErrorCode("aaaa");
+        serviceException.setStatusCode(400);
         // when
-        exceptionHandler.onException(method, new InvalidIdFormatException("Some message"));
+        exceptionHandler.onException(method, serviceException);
         // then
-        verify(metricsContext, times(1)).incrementCounter("sendMessage.serviceError[type: InvalidIdFormatException]");
+        verify(metricsContext, times(1))
+                .incrementCounter("sendMessage.serviceError[type: InvalidIdFormatException, status: 400, errorCode: aaaa]");
     }
 
     @Test

@@ -20,7 +20,7 @@ class ExceptionHandler {
 
     private String getServiceErrorMetricName(Method method, AmazonServiceException e) {
         return method.getName() + ".serviceError" +
-                String.format("[type: %s, status: %d, errorCode:%s]", e.getClass().getSimpleName(), e.getStatusCode(), e.getErrorCode());
+                String.format("[type: %s, status: %d, errorCode: %s]", e.getClass().getSimpleName(), e.getStatusCode(), e.getErrorCode());
     }
 
     void onException(Method method, AmazonClientException clientException) {

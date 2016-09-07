@@ -2,6 +2,8 @@ package com.schibsted.metricsaws;
 
 import java.lang.reflect.Method;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
 import com.codahale.metrics.Timer;
 import com.schibsted.metricsaws.sample.Service;
 import com.schibsted.metricsaws.sample.ServiceImpl;
@@ -133,7 +135,35 @@ public class TestMetricsInvocationHandler {
     }
 
     @Test
-    public void shouldHanldeExceptions() throws Throwable {
+    public void shouldHandleServiceException() throws Throwable {
+        // given
+        AmazonServiceException amazonServiceException = new AmazonServiceException("some message");
+        given(delegateMethodExecutor.invoke(any(), any(Method.class), any(Object[].class))).willThrow(amazonServiceException);
+        // when
+        try {
+            metricsInvocationHandler.invoke(proxy, method, args);
+            // then
+        } catch (RuntimeException e) {
+            verify(exceptionHandler, times(1)).onException(eq(method), eq(amazonServiceException));
+        }
+    }
+
+    @Test
+    public void shouldHandleClientException() throws Throwable {
+        // given
+        AmazonClientException amazonClientException = new AmazonClientException("some message");
+        given(delegateMethodExecutor.invoke(any(), any(Method.class), any(Object[].class))).willThrow(amazonClientException);
+        // when
+        try {
+            metricsInvocationHandler.invoke(proxy, method, args);
+            // then
+        } catch (RuntimeException e) {
+            verify(exceptionHandler, times(1)).onException(eq(method), eq(amazonClientException));
+        }
+    }
+
+    @Test
+    public void shouldHandleOtherException() throws Throwable {
         // given
         RuntimeException runtimeException = new RuntimeException();
         given(delegateMethodExecutor.invoke(any(), any(Method.class), any(Object[].class))).willThrow(runtimeException);
