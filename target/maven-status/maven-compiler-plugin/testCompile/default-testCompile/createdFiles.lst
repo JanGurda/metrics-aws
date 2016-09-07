@@ -1,0 +1,7 @@
+com\schibsted\metricsaws\sample\ServiceImpl.class
+com\schibsted\metricsaws\sample\Service.class
+com\schibsted\metricsaws\TestExceptionHandler.class
+com\schibsted\metricsaws\TestMetricsInvocationHandler.class
+com\schibsted\metricsaws\TestInstrumentedAwsClientFactory.class
+com\schibsted\metricsaws\TestDelegateMethodExecutor.class
+com\schibsted\metricsaws\TestMetricsContext.class
