@@ -1,7 +1,7 @@
 # metrics-aws
 Codahale Metrics instrumentation over AWS Java SDKs
 
-This is a result of HackDay which took place in Schibsted Tech Poland. Motivation behind that project was lack of libraries which instrument various AWS services. Until HackDay we had been using custom code for each place we use AWS Java SDK. This produces code duplication. Also names of metrics were not consistent throughout the services. In initial state of our project we decided to use Codahale Metrics and publish statistics to DataDog.
+This is a result of HackDay which took place in Schibsted Tech Poland. Motivation behind that project was lack of libraries which instrument Java SDK clients of various AWS services. Until HackDay we had been using custom code for each place we use AWS Java SDK. This produces code duplication. Also names of metrics were not consistent across the services. In initial state of our project we decided to use Codahale Metrics and publish statistics to DataDog so building this kind of common component was necessary at some point.
 
 In order to use:
 - checkout code
